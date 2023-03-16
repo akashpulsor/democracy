@@ -1,10 +1,11 @@
 package com.example.hackathon.service;
 
-import com.example.hackathon.dto.GameRequestDto;
-import com.example.hackathon.dto.GameResponseDto;
-import com.example.hackathon.dto.NextMoveDto;
-import com.example.hackathon.dto.NextMoveResponseDto;
+import com.example.hackathon.dto.*;
+import com.example.hackathon.model.Game;
+import com.example.hackathon.model.Player;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class BoardManagerImpl implements BoardManager{
@@ -12,8 +13,11 @@ public class BoardManagerImpl implements BoardManager{
     // board
     private final GameService gameService;
 
-    public BoardManagerImpl(GameService gameService){
+    private final LeaderService leaderService;
+
+    public BoardManagerImpl(GameService gameService,LeaderService leaderService){
         this.gameService = gameService;
+        this.leaderService = leaderService;
     }
 
 
@@ -34,6 +38,27 @@ public class BoardManagerImpl implements BoardManager{
         // states
         // events
         return this.NextMove(nextMoveDto);
+    }
+
+    @Override
+    public List<Game> getAllGames() {
+        return this.gameService.getGameList();
+    }
+
+    @Override
+    public Game joinGame(JoinRequestDto joinRequestDto) {
+        Player newPlayerModel = playerDtoToModel(joinRequestDto.getPlayer());
+        Game game = this.gameService.getGameById(joinRequestDto.getGameId());
+        game.getPlayer().add(newPlayerModel);
+        game = this.gameService.saveGame(game);
+        return this.gameService.saveGame(game);
+    }
+
+    private Player playerDtoToModel(com.example.hackathon.dto.Player newPlayer){
+        Player newPlayerModel = new Player();
+        newPlayerModel.setPlayerName(newPlayer.getPlayerName());
+        newPlayerModel.setId(newPlayer.getPlayerId());
+        return newPlayerModel;
     }
 
 

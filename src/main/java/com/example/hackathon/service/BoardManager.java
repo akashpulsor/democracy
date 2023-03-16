@@ -1,12 +1,17 @@
 package com.example.hackathon.service;
 
-import com.example.hackathon.dto.GameRequestDto;
-import com.example.hackathon.dto.GameResponseDto;
-import com.example.hackathon.dto.NextMoveDto;
-import com.example.hackathon.dto.NextMoveResponseDto;
+import com.example.hackathon.dto.*;
+import com.example.hackathon.model.Game;
+
+import java.util.List;
 
 public interface BoardManager {
     GameResponseDto initializeGame(GameRequestDto gameRequestDto);
 
     NextMoveResponseDto NextMove(NextMoveDto nextMoveDto);
+
+    List<Game> getAllGames();
+
+    Game joinGame(JoinRequestDto joinRequestDto);
+
 }

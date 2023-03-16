@@ -5,5 +5,5 @@ import com.example.hackathon.dto.Leader;
 public interface LeaderService {
 
 
-    public Leader getLeader();
+    public Leader getLeader(long leaderId);
 }

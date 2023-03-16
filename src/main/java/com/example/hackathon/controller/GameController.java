@@ -1,12 +1,13 @@
 package com.example.hackathon.controller;
 
-import com.example.hackathon.dto.GameRequestDto;
-import com.example.hackathon.dto.GameResponseDto;
-import com.example.hackathon.dto.NextMoveDto;
-import com.example.hackathon.dto.NextMoveResponseDto;
+import com.example.hackathon.dto.*;
+import com.example.hackathon.model.Game;
 import com.example.hackathon.service.BoardManager;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController("/game")
 public class GameController {
@@ -26,5 +27,18 @@ public class GameController {
     @GetMapping(value = "/next-move")
     public NextMoveResponseDto nextMove(NextMoveDto nextMoveDto){
         return  this.nextMove(nextMoveDto);
+    }
+
+
+
+    @GetMapping(value = "/getGames")
+    public List<Game> getGames(){
+        return this.boardManager.getAllGames();
+    }
+
+
+    @PostMapping(value="/join")
+    public Game joinGame(JoinRequestDto joinRequestDto){
+        return this.boardManager.joinGame(joinRequestDto);
     }
 }

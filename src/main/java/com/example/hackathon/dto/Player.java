@@ -7,6 +7,6 @@ import java.util.List;
 
 @Data
 public class Player {
-    private int playerId;
-
+    private long playerId;
+    private String playerName;
 }
