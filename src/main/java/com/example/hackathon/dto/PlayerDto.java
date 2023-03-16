@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class Player {
+public class PlayerDto {
     private long playerId;
     private String playerName;
 }

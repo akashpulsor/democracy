@@ -1,6 +1,7 @@
 package com.example.hackathon.service;
 
-import com.example.hackathon.dto.Leader;
+
+import com.example.hackathon.model.Leader;
 
 public interface LeaderService {
 

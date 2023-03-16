@@ -2,6 +2,7 @@ package com.example.hackathon.service;
 
 import com.example.hackathon.dto.*;
 import com.example.hackathon.model.Game;
+import com.example.hackathon.model.Leader;
 import com.example.hackathon.model.Player;
 import org.springframework.stereotype.Component;
 
@@ -47,20 +48,21 @@ public class BoardManagerImpl implements BoardManager{
 
     @Override
     public Game joinGame(JoinRequestDto joinRequestDto) {
-        Player newPlayerModel = playerDtoToModel(joinRequestDto.getPlayer());
+        Player newPlayerModel = playerDtoToModel(joinRequestDto.getPlayerDto());
         Game game = this.gameService.getGameById(joinRequestDto.getGameId());
         game.getPlayer().add(newPlayerModel);
         game = this.gameService.saveGame(game);
+        Leader leaderLeader = this.leaderService.getLeader(game.getLeaderId());
         return this.gameService.saveGame(game);
     }
 
-    private Player playerDtoToModel(com.example.hackathon.dto.Player newPlayer){
+    private Player playerDtoToModel(PlayerDto newPlayerDto){
         Player newPlayerModel = new Player();
-        newPlayerModel.setPlayerName(newPlayer.getPlayerName());
-        newPlayerModel.setId(newPlayer.getPlayerId());
+        newPlayerModel.setPlayerName(newPlayerDto.getPlayerName());
+        newPlayerModel.setId(newPlayerDto.getPlayerId());
         return newPlayerModel;
     }
 
 
-    //
+
 }

@@ -7,5 +7,5 @@ public class JoinRequestDto {
 
     private int gameId;
 
-    private Player player;
+    private PlayerDto playerDto;
 }

@@ -1,11 +1,11 @@
 package com.example.hackathon.service;
 
+import com.example.hackathon.dao.GameRepository;
 import com.example.hackathon.dto.GameRequestDto;
 import com.example.hackathon.dto.GameResponseDto;
 import com.example.hackathon.dto.NextMoveDto;
 import com.example.hackathon.dto.NextMoveResponseDto;
 import com.example.hackathon.model.Game;
-import com.example.hackathon.model.Player;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
