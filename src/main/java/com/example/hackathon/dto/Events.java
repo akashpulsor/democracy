@@ -10,8 +10,8 @@ import java.util.Map;
 @Data
 public class Events {
     private int eventId;
-    private List<States> propagandaList = new ArrayList<>();
-    private String eventUrl;
+    private List<States> propagandaList = new ArrayList<>(); /// states [r
+    private States eventState;
     private Map<States, List<States>> propagandaFreeMediaMap = new HashMap<>();
-    private String reportUrl;
+    private States reportStates;
 }

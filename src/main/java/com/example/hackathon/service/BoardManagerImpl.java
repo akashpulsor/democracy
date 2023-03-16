@@ -20,6 +20,7 @@ public class BoardManagerImpl implements BoardManager{
     @Override
     public GameResponseDto initializeGame(GameRequestDto gameRequestDto) {
         //leaderService --- leaderId -- state event
+
         return this.gameService.initializeGame(gameRequestDto);
     }
 

@@ -1,12 +1,18 @@
 package com.example.hackathon.model;
 
+import javax.persistence.*;
+import java.util.Set;
 
-import com.example.hackathon.dto.Events;
-
-import java.util.ArrayList;
-import java.util.List;
-
+@Entity
+@Table(name="Leader")
 public class Leader {
-    private int leaderId;
-    private List<Events> eventsList = new ArrayList<>();
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name="id")
+    private Long id;
+
+    @OneToMany(mappedBy = "leader")
+    private Set<Event> event;
+
 }

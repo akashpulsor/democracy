@@ -5,5 +5,6 @@ public enum TrumpCardEnum {
     INSTITUTION,
     MONEY,
     FREE_MEDIA,
-    VOTE
+    VOTE,
+    REPORT
 }
