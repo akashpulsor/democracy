@@ -1,9 +1,11 @@
 package com.example.hackathon.model;
 
 import com.example.hackathon.dto.TrumpCardEnum;
+import lombok.Data;
 
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "state")
 public class State {

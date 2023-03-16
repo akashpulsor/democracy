@@ -1,8 +1,11 @@
 package com.example.hackathon.dto;
 
-public class States {
+import lombok.Data;
 
-    private int stateId;
+@Data
+public class StatesDto {
+
+    private long stateId;
     private String url;
     private TrumpCardEnum type;
 

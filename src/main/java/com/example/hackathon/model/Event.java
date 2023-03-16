@@ -1,7 +1,10 @@
 package com.example.hackathon.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "event")
 public class Event {

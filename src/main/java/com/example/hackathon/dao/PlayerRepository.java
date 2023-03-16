@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PlayerRepository extends CrudRepository<Player,Long>,
         QuerydslPredicateExecutor<Player> {
-    Player save(Player player );
+    Player save(Player player);
 
     Player findByPlayerId( Integer playerId );
 }

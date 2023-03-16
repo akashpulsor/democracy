@@ -18,10 +18,7 @@ public class GameController {
     public GameController(BoardManager boardManager){
         this.boardManager = boardManager;
     }
-    @GetMapping(value = "/initialize")
-    public GameResponseDto initializeGame(GameRequestDto gameRequestDto){
-        return this.boardManager.initializeGame(gameRequestDto);
-    }
+
 
 
     @GetMapping(value = "/next-move")
@@ -38,7 +35,12 @@ public class GameController {
 
 
     @PostMapping(value="/join")
-    public Game joinGame(JoinRequestDto joinRequestDto){
+    public GameResponseDto joinGame(JoinRequestDto joinRequestDto){
         return this.boardManager.joinGame(joinRequestDto);
+    }
+
+    @PostMapping(value="/add-player")
+    public  PlayerDto addPlayer(PlayerDto playerDto){
+        return this.boardManager.addPlayer(playerDto);
     }
 }

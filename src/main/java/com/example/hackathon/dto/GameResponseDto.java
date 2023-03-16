@@ -1,9 +1,12 @@
 package com.example.hackathon.dto;
 
+import lombok.Data;
+
+@Data
 public class GameResponseDto {
 
-    private int gameId;
-
-
-
+    private long gameId;
+    private long leaderId;
+    private int eventCount;
+    private  EventDto eventDto;
 }

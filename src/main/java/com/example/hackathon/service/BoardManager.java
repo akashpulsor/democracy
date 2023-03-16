@@ -12,6 +12,8 @@ public interface BoardManager {
 
     List<Game> getAllGames();
 
-    Game joinGame(JoinRequestDto joinRequestDto);
+    GameResponseDto joinGame(JoinRequestDto joinRequestDto);
+
+    PlayerDto addPlayer(PlayerDto playerDto);
 
 }

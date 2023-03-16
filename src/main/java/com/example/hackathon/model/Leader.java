@@ -1,8 +1,11 @@
 package com.example.hackathon.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Set;
 
+@Data
 @Entity
 @Table(name="Leader")
 public class Leader {
