@@ -11,7 +11,7 @@ import java.util.Set;
 public interface BoardManager {
 
 
-    NextMoveResponseDto NextMove(NextMoveDto nextMoveDto);
+    NextMoveResponseDto nextMove(NextMoveDto nextMoveDto);
 
     List<Game> getAllGames();
 

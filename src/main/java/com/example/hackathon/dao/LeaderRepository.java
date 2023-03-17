@@ -11,12 +11,13 @@ import java.util.List;
 import java.util.Set;
 
 @Repository
-public interface LeaderRepository extends CrudRepository<Leader,Long>,
-        QuerydslPredicateExecutor<Leader> {
+public interface LeaderRepository extends CrudRepository<Leader,Long> {
 
-    Leader findByLeaderId( long leaderId );
+    Leader findById( long leaderId );
 
     Set<Event> findEventById(long leaderId);
 
     Leader save(Leader leader);
+
+
 }

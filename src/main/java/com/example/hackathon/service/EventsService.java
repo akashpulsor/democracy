@@ -7,7 +7,8 @@ import java.util.List;
 public interface EventsService {
 
 
-    public List<Event> addEvents(List<Event> events);
+    List<Event> addEvents(List<Event> events);
 
-    public List<Event> getEvents();
+    List<Event> getEvents();
+    Event getEventById(long eventId);
 }

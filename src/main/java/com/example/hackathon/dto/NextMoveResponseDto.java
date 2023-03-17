@@ -8,7 +8,8 @@ import java.util.List;
 @Data
 public class NextMoveResponseDto {
 
-    private int currentId;
+    private int currentCount;
     private List<StatesDto> states = new ArrayList<>();
     private long playerId;
+    private long currentGameInstanceId;
 }

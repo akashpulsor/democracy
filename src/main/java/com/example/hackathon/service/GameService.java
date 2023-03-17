@@ -1,10 +1,12 @@
 package com.example.hackathon.service;
 
+import com.example.hackathon.dao.CurrentGameInstanceRepository;
 import com.example.hackathon.dao.GameRepository;
 import com.example.hackathon.dto.GameRequestDto;
 import com.example.hackathon.dto.GameResponseDto;
 import com.example.hackathon.dto.NextMoveDto;
 import com.example.hackathon.dto.NextMoveResponseDto;
+import com.example.hackathon.model.CurrentGameInstance;
 import com.example.hackathon.model.Game;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +17,12 @@ public class GameService  {
 
     private final GameRepository gameRepository;
 
-    public GameService(GameRepository gameRepository){
+    private final CurrentGameInstanceRepository currentGameInstanceRepository;
+
+    public GameService(GameRepository gameRepository,
+                       CurrentGameInstanceRepository currentGameInstanceRepository){
         this.gameRepository = gameRepository;
+        this.currentGameInstanceRepository = currentGameInstanceRepository;
     }
     public NextMoveResponseDto NextMove(NextMoveDto nextMoveDto) {
         return null;
@@ -46,5 +52,8 @@ public class GameService  {
         return this.gameRepository.save(game);
     }
 
+    public CurrentGameInstance getCurrentGameInstance(CurrentGameInstance currentGameInstance){
+        return this.currentGameInstanceRepository.save(currentGameInstance);
+    }
 
 }

@@ -19,7 +19,7 @@ public class LeaderServiceImpl implements  LeaderService {
 
     @Override
     public Leader getLeader(long leaderId) {
-        return this.leaderRepository.findByLeaderId(leaderId);
+        return this.leaderRepository.findById(leaderId);
     }
 
     @Override
@@ -30,5 +30,10 @@ public class LeaderServiceImpl implements  LeaderService {
     @Override
     public Leader addLeader(Leader leader) {
         return this.leaderRepository.save(leader);
+    }
+
+    @Override
+    public Event getEventByLeaderIdAndEventId(long leaderId, long eventId) {
+        return null;
     }
 }

@@ -5,7 +5,9 @@ import lombok.Data;
 @Data
 public class NextMoveDto {
     private int currentCount;
+    private int currentGameInstanceId;
     private boolean support;
     private long playerId;
+    private long eventId;
     private boolean freeMediaEnabled;
 }

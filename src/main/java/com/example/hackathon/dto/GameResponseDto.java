@@ -9,4 +9,5 @@ public class GameResponseDto {
     private long leaderId;
     private int eventCount;
     private  EventDto eventDto;
+    private long currentGameInstanceId;
 }

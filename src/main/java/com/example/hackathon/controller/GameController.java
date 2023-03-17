@@ -26,7 +26,7 @@ public class GameController {
 
     @GetMapping(value = "/next-move")
     public NextMoveResponseDto nextMove(NextMoveDto nextMoveDto){
-        return  this.nextMove(nextMoveDto);
+        return  this.boardManager.nextMove(nextMoveDto);
     }
 
 

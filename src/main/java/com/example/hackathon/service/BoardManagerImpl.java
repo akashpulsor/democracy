@@ -21,27 +21,27 @@ public class BoardManagerImpl implements BoardManager{
 
     private  final PlayerService playerService;
 
+    private final EventsService eventsService;
+
     public BoardManagerImpl(GameService gameService,LeaderService leaderService,
-                            PlayerService playerService){
+                            PlayerService playerService, EventsService eventsService){
         this.gameService = gameService;
         this.leaderService = leaderService;
         this.playerService = playerService;
+        this.eventsService = eventsService;
     }
 
 
 
 
     @Override
-    public NextMoveResponseDto NextMove(NextMoveDto nextMoveDto) {
-
-        // true --- 4 -- event ---4 -3
-        // 4
-        // false -- states ---  progpaganda
-        // event --
-        // states
-        // events
-        return this.NextMove(nextMoveDto);
+    public NextMoveResponseDto nextMove(NextMoveDto nextMoveDto) {
+        Event event =this.eventsService.getEventById(nextMoveDto.getEventId());
+        List<PlayerHistory> playerHistory = this.playerService.getPlayerHistory(nextMoveDto.getPlayerId(),
+                nextMoveDto.getCurrentGameInstanceId());
+        return this.nextMove(nextMoveDto);
     }
+
 
     @Override
     public List<Game> getAllGames() {
@@ -63,7 +63,17 @@ public class BoardManagerImpl implements BoardManager{
         GameResponseDto gameResponseDto = createGameResponseDto(game);
         EventDto eventsDto = createEventDto(event);
         gameResponseDto.setEventDto(eventsDto);
+        CurrentGameInstance currentGameInstance = createCurrentGameInstance(game, newPlayerModel);
+        currentGameInstance =this.gameService.getCurrentGameInstance(currentGameInstance);
+        gameResponseDto.setCurrentGameInstanceId(currentGameInstance.getId());
         return gameResponseDto;
+    }
+
+    private CurrentGameInstance createCurrentGameInstance(Game game, Player Player){
+        CurrentGameInstance currentGameInstance = new CurrentGameInstance();
+        currentGameInstance.setGameId(game.getGameId());
+        currentGameInstance.setId(Player.getId());
+        return currentGameInstance;
     }
 
     @Override

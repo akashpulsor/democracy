@@ -17,6 +17,8 @@ public class Player {
     @Column(name="player_name")
     private String playerName;
 
+    //TODO add number;
+
     @Column(name="free_media_enabled")
     private boolean freeMediaEnabled = false;
 

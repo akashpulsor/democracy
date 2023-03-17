@@ -6,6 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PropagandaRepository extends CrudRepository<PropagandaFreeMedia,Long>,
-        QuerydslPredicateExecutor<PropagandaFreeMedia> {
+public interface PropagandaRepository extends CrudRepository<PropagandaFreeMedia,Long> {
 }

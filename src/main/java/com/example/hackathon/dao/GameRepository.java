@@ -10,8 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface GameRepository  extends CrudRepository<Game,Long>,
-        QuerydslPredicateExecutor<Game>  {
+public interface GameRepository  extends CrudRepository<Game,Long>  {
 
     Game save( Game game );
     Game findByGameId( long gameId );

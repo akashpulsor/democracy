@@ -15,4 +15,6 @@ public interface LeaderService {
     Set<Event> getEventByLeader(long leaderId);
 
     Leader addLeader(Leader leader);
+
+
 }
