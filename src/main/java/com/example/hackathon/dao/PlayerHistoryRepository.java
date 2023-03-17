@@ -12,5 +12,5 @@ import java.util.List;
 public interface PlayerHistoryRepository extends CrudRepository<PlayerHistory,Long>  {
 
     List<PlayerHistory> findByPlayerId(long playerId );
-    List<PlayerHistory> findByPlayerIdAndCurrentGameInstanceId(long playerId );
+    List<PlayerHistory> findByPlayerIdAndCurrentGameInstanceId(long playerId, long current_game_instance_id );
 }

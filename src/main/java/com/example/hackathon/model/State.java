@@ -24,4 +24,9 @@ public class State {
     @Enumerated(EnumType.STRING)
     private Camp camp;
 
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "event_state_id",nullable=false)
+    private Event event;
+
 }

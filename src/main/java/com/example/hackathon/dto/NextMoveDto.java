@@ -9,5 +9,6 @@ public class NextMoveDto {
     private boolean support;
     private long playerId;
     private long eventId;
+    private long leaderId;
     private boolean freeMediaEnabled;
 }

@@ -32,8 +32,5 @@ public class LeaderServiceImpl implements  LeaderService {
         return this.leaderRepository.save(leader);
     }
 
-    @Override
-    public Event getEventByLeaderIdAndEventId(long leaderId, long eventId) {
-        return null;
-    }
+
 }

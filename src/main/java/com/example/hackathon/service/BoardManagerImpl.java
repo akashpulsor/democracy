@@ -5,10 +5,7 @@ import com.example.hackathon.exception.EventNotFoundException;
 import com.example.hackathon.model.*;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Component
@@ -33,14 +30,69 @@ public class BoardManagerImpl implements BoardManager{
 
 
 
-
+    //TODO corner case of next event will be dealt later
+    //TODO polarization on the basis of free media will be dealt later
     @Override
     public NextMoveResponseDto nextMove(NextMoveDto nextMoveDto) {
         Event event =this.eventsService.getEventById(nextMoveDto.getEventId());
         List<PlayerHistory> playerHistory = this.playerService.getPlayerHistory(nextMoveDto.getPlayerId(),
                 nextMoveDto.getCurrentGameInstanceId());
+        Set<Event> events = this.leaderService.getEventByLeader(nextMoveDto.getLeaderId());
+        CurrentGameInstance currentGameInstance = this.gameService.
+                getCurrentGameInstanceId(nextMoveDto.getCurrentGameInstanceId());
+        List<State> notWatched = notWatchedVideo(event,playerHistory);
+        Set<Long> watchedEvents = playerHistory.stream()
+                .map(PlayerHistory::getWatchedEvent).collect(Collectors.toSet());
+
         return this.nextMove(nextMoveDto);
     }
+
+    @Override
+    public Event nextMove1(NextMoveDto nextMoveDto) {
+        Event event =this.eventsService.getEventById(nextMoveDto.getEventId());
+        List<PlayerHistory> playerHistory = this.playerService.getPlayerHistory(nextMoveDto.getPlayerId(),
+                nextMoveDto.getCurrentGameInstanceId());
+        Set<Event> events = this.leaderService.getEventByLeader(nextMoveDto.getLeaderId());
+        CurrentGameInstance currentGameInstance = this.gameService.
+                getCurrentGameInstanceId(nextMoveDto.getCurrentGameInstanceId());
+        Set<Long> watchedEvents = playerHistory.stream()
+                .map(PlayerHistory::getWatchedEvent).collect(Collectors.toSet());
+        List<Event> notProcessedEventsList=notProcessedEvents(events,watchedEvents);
+
+        Optional<Event> temp = notProcessedEventsList.stream().findAny();
+        if(notProcessedEventsList.isEmpty()){
+            return new Event();
+        }
+        return temp.get();
+    }
+
+    private List<State> notWatchedVideo(Event event, List<PlayerHistory> playerHistoryList){
+        Set<Long> watchedVideos = playerHistoryList.stream()
+                .map(PlayerHistory::getWatchedState).collect(Collectors.toSet());
+
+
+        List<State> notWatched = new ArrayList<>();
+        for(State state: event.getMediaList()){
+            if(watchedVideos.contains(state.getId())){
+                notWatched.add(state);
+            }
+        }
+        return notWatched;
+    }
+
+
+    private List<Event> notProcessedEvents(Set<Event> events,Set<Long> watchedEvents){
+        List<Event> notProcessedEvents = new ArrayList<>();
+        for (Event event:
+        events) {
+            if(!watchedEvents.contains(event.getId())){
+                notProcessedEvents.contains(event);
+            }
+        }
+        return notProcessedEvents;
+    }
+
+
 
 
     @Override
@@ -98,6 +150,11 @@ public class BoardManagerImpl implements BoardManager{
         return this.leaderService.getEventByLeader(leaderDto.getLeaderId());
     }
 
+    @Override
+    public PlayerHistory addWatchHistory(PlayerHistory playerHistory) {
+        return this.playerService.addPlayerHistory(playerHistory);
+    }
+
     private Leader LeaderDtoToLeader(LeaderDto leaderDto){
         Leader leader = new Leader();
         leader.setId(leaderDto.getLeaderId());
@@ -115,7 +172,7 @@ public class BoardManagerImpl implements BoardManager{
         Event event = new Event();
         event.setId(eventDto.getEventId());
         event.setLeader(leader);
-        event.setPropagandaFreeMediaMap(eventDto.getPropagandaFreeMediaMap());
+        event.setMediaList(eventDto.getMediaList());
         event.setEventState(eventDto.getEventState());
         event.setReportState(eventDto.getReportStatesDto());
         return event;
@@ -148,7 +205,7 @@ public class BoardManagerImpl implements BoardManager{
         EventDto eventDto = new EventDto();
         eventDto.setEventId(event.getId());
         eventDto.setReportStatesDto(event.getReportState());
-        eventDto.setPropagandaFreeMediaMap(event.getPropagandaFreeMediaMap());
+        eventDto.setMediaList(event.getMediaList());
         eventDto.setEventState(event.getEventState());
         return eventDto;
     }

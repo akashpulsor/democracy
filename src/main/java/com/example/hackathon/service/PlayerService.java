@@ -26,6 +26,10 @@ public class PlayerService {
     }
 
     public List<PlayerHistory> getPlayerHistory(long playerId, long current_game_instance_id) {
-        return this.playerHistoryRepository.findByPlayerIdAndCurrentGameInstanceId(playerId);
+        return this.playerHistoryRepository.findByPlayerIdAndCurrentGameInstanceId(playerId,current_game_instance_id);
+    }
+
+    public PlayerHistory addPlayerHistory(PlayerHistory playerHistory){
+        return this.playerHistoryRepository.save(playerHistory);
     }
 }

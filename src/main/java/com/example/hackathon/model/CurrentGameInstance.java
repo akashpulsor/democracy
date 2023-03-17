@@ -16,9 +16,16 @@ public class CurrentGameInstance {
     @Column(name="id")
     private Long id;
 
+    @Column(name="game_id")
     private long gameId;
 
+    @Column(name="player_id")
     private long playerId;
 
+    @Column(name="current_yes_count")
+    private long currentYesCount;
+
+    @Column(name="current_no_count")
+    private long currentNoCount;
 
 }

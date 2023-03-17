@@ -1,9 +1,7 @@
 package com.example.hackathon.service;
 
 import com.example.hackathon.dto.*;
-import com.example.hackathon.model.Event;
-import com.example.hackathon.model.Game;
-import com.example.hackathon.model.Leader;
+import com.example.hackathon.model.*;
 
 import java.util.List;
 import java.util.Set;
@@ -12,6 +10,8 @@ public interface BoardManager {
 
 
     NextMoveResponseDto nextMove(NextMoveDto nextMoveDto);
+
+    Event nextMove1(NextMoveDto nextMoveDto);
 
     List<Game> getAllGames();
 
@@ -24,5 +24,7 @@ public interface BoardManager {
     Leader getLeader(LeaderDto leaderDto);
 
     Set<Event> getEventByLeader(LeaderDto leaderDto);
+
+    PlayerHistory addWatchHistory(PlayerHistory playerHistory);
 
 }

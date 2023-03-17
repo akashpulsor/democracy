@@ -1,9 +1,7 @@
 package com.example.hackathon.controller;
 
 import com.example.hackathon.dto.*;
-import com.example.hackathon.model.Event;
-import com.example.hackathon.model.Game;
-import com.example.hackathon.model.Leader;
+import com.example.hackathon.model.*;
 import com.example.hackathon.service.BoardManager;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,8 +23,8 @@ public class GameController {
 
 
     @GetMapping(value = "/next-move")
-    public NextMoveResponseDto nextMove(NextMoveDto nextMoveDto){
-        return  this.boardManager.nextMove(nextMoveDto);
+    public Event nextMove(NextMoveDto nextMoveDto){
+        return  this.boardManager.nextMove1(nextMoveDto);
     }
 
 
@@ -46,7 +44,6 @@ public class GameController {
     public  PlayerDto addPlayer(PlayerDto playerDto){
         return this.boardManager.addPlayer(playerDto);
     }
-
 
     @PostMapping(value="/add-events")
     public Leader addEvents(LeaderDto leaderDto){
@@ -70,5 +67,8 @@ public class GameController {
     }
 
 
-
+    @PostMapping(value="/watch-history")
+    public PlayerHistory addWatchHistory(PlayerHistory playerHistory){
+        return  this.boardManager.addWatchHistory(playerHistory);
+    }
 }

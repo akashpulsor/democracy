@@ -6,11 +6,13 @@ import com.example.hackathon.dto.GameRequestDto;
 import com.example.hackathon.dto.GameResponseDto;
 import com.example.hackathon.dto.NextMoveDto;
 import com.example.hackathon.dto.NextMoveResponseDto;
+import com.example.hackathon.exception.CurrentGameInstanceNotFoundException;
 import com.example.hackathon.model.CurrentGameInstance;
 import com.example.hackathon.model.Game;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GameService  {
@@ -54,6 +56,16 @@ public class GameService  {
 
     public CurrentGameInstance getCurrentGameInstance(CurrentGameInstance currentGameInstance){
         return this.currentGameInstanceRepository.save(currentGameInstance);
+    }
+
+
+    public  CurrentGameInstance getCurrentGameInstanceId(long currentGameInstanceId){
+        Optional<CurrentGameInstance> currentGameInstance = this.currentGameInstanceRepository.
+                findById(currentGameInstanceId);
+        if(currentGameInstance.isEmpty()){
+            throw  new CurrentGameInstanceNotFoundException("Current Game Instance not found");
+        }
+        return currentGameInstance.get();
     }
 
 }

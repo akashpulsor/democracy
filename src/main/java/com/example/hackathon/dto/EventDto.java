@@ -14,9 +14,8 @@ import java.util.Map;
 @Data
 public class EventDto {
     private long eventId;
-    private List<StatesDto> propagandaList = new ArrayList<>(); /// states [r
+    private List<State> mediaList = new ArrayList<>(); /// states [r
     private State eventState;
-    private PropagandaFreeMedia propagandaFreeMediaMap;
     private State reportStatesDto;
 
 }

@@ -3,6 +3,7 @@ package com.example.hackathon.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -18,9 +19,13 @@ public class Event {
     @JoinColumn(name="event_state_id", nullable=false, referencedColumnName = "id")
     private State eventState;
 
-    @OneToOne
-    @JoinColumn(name="propaganda_free_media_id", nullable=false, referencedColumnName = "id")
-    private PropagandaFreeMedia propagandaFreeMediaMap;
+
+
+
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "event")
+    private List<State> mediaList;
 
     @OneToOne
     @JoinColumn(name="report_state_id", nullable=false, referencedColumnName = "id")
