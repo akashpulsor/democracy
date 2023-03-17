@@ -17,6 +17,9 @@ public class Player {
     @Column(name="player_name")
     private String playerName;
 
+    @Column(name="free_media_enabled")
+    private boolean freeMediaEnabled = false;
+
     @ManyToOne
     @JoinColumn(name="game_id", nullable=false)
     private Game game;

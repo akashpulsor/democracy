@@ -5,8 +5,11 @@ import com.example.hackathon.exception.EventNotFoundException;
 import com.example.hackathon.model.*;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class BoardManagerImpl implements BoardManager{
@@ -26,12 +29,7 @@ public class BoardManagerImpl implements BoardManager{
     }
 
 
-    @Override
-    public GameResponseDto initializeGame(GameRequestDto gameRequestDto) {
-        //leaderService --- leaderId -- state event
 
-        return this.gameService.initializeGame(gameRequestDto);
-    }
 
     @Override
     public NextMoveResponseDto NextMove(NextMoveDto nextMoveDto) {
@@ -61,7 +59,6 @@ public class BoardManagerImpl implements BoardManager{
         if(eventOptional.isEmpty()){
             throw  new EventNotFoundException("Event not found exception");
         }
-
         Event event = eventOptional.get();
         GameResponseDto gameResponseDto = createGameResponseDto(game);
         EventDto eventsDto = createEventDto(event);
@@ -76,10 +73,49 @@ public class BoardManagerImpl implements BoardManager{
         return playerModelToDto(player);
     }
 
+    @Override
+    public Leader addLeader(LeaderDto leaderDto) {
+        return this.leaderService.addLeader(LeaderDtoToLeader(leaderDto));
+    }
+
+    @Override
+    public Leader getLeader(LeaderDto leaderDto) {
+        return this.leaderService.getLeader(leaderDto.getLeaderId());
+    }
+
+    @Override
+    public Set<Event> getEventByLeader(LeaderDto leaderDto) {
+        return this.leaderService.getEventByLeader(leaderDto.getLeaderId());
+    }
+
+    private Leader LeaderDtoToLeader(LeaderDto leaderDto){
+        Leader leader = new Leader();
+        leader.setId(leaderDto.getLeaderId());
+        Set<Event> events = new HashSet<>();
+        for (EventDto eventDto:
+        leaderDto.getEventDtoList()) {
+            Event event =eventDtoToEvent(eventDto,leader);
+            events.add(event);
+        }
+        leader.setEvent(events);
+        return leader;
+    }
+
+    private Event eventDtoToEvent(EventDto eventDto, Leader leader){
+        Event event = new Event();
+        event.setId(eventDto.getEventId());
+        event.setLeader(leader);
+        event.setPropagandaFreeMediaMap(eventDto.getPropagandaFreeMediaMap());
+        event.setEventState(eventDto.getEventState());
+        event.setReportState(eventDto.getReportStatesDto());
+        return event;
+    }
+
     private PlayerDto playerModelToDto( Player playerModel){
         PlayerDto playerDto = new PlayerDto();
         playerDto.setPlayerName(playerModel.getPlayerName());
         playerDto.setPlayerId(playerModel.getId());
+        playerDto.setFreeMediaEnabled(playerModel.isFreeMediaEnabled());
         return playerDto;
     }
 
@@ -87,6 +123,7 @@ public class BoardManagerImpl implements BoardManager{
         Player newPlayerModel = new Player();
         newPlayerModel.setPlayerName(newPlayerDto.getPlayerName());
         newPlayerModel.setId(newPlayerDto.getPlayerId());
+        newPlayerModel.setFreeMediaEnabled(newPlayerDto.isFreeMediaEnabled());
         return newPlayerModel;
     }
 
@@ -100,8 +137,9 @@ public class BoardManagerImpl implements BoardManager{
     private EventDto createEventDto(Event event){
         EventDto eventDto = new EventDto();
         eventDto.setEventId(event.getId());
-        StatesDto statesDto = createStatesDto(event.getReportState());
-        eventDto.setReportStatesDto(statesDto);
+        eventDto.setReportStatesDto(event.getReportState());
+        eventDto.setPropagandaFreeMediaMap(event.getPropagandaFreeMediaMap());
+        eventDto.setEventState(event.getEventState());
         return eventDto;
     }
 

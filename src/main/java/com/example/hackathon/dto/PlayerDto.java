@@ -9,4 +9,5 @@ import java.util.List;
 public class PlayerDto {
     private long playerId;
     private String playerName;
+    private boolean freeMediaEnabled;
 }
