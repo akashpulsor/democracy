@@ -19,10 +19,7 @@ public class HackathonApplication {
 		SpringApplication.run(HackathonApplication.class, args);
 	}
 
-	@Bean
-	public BCryptPasswordEncoder getBCryptPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+
 
 
 

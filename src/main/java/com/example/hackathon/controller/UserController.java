@@ -9,12 +9,14 @@ import com.example.hackathon.model.Game;
 import com.example.hackathon.service.UserManager;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 @Api(value = "User Management System")
 public class UserController {
 
@@ -49,6 +51,19 @@ public class UserController {
         return this.userManager.getUserById(id);
     }
 
-
+    /*
+    * TODO follower service
+    *  add follower remove follower
+    *  get Profile by id -- user data and video list
+    *  upload video/ delete video
+    *  like video/unlike video
+    *  share video
+    *  send message recieve message
+    *  add Comment delete comment
+    *  feed service
+    *  
+    *
+    * Feed service
+    * */
 
 }

@@ -1,10 +1,9 @@
 package com.example.hackathon.service;
 
-import com.example.hackathon.dto.LoginRequestDto;
-import com.example.hackathon.dto.LoginResponseDto;
-import com.example.hackathon.dto.SearchResponseDto;
-import com.example.hackathon.dto.UserDto;
+import com.example.hackathon.dto.*;
+import org.springframework.http.ResponseCookie;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface UserManager {
@@ -15,5 +14,11 @@ public interface UserManager {
 
     LoginResponseDto login(LoginRequestDto loginRequestDto);
 
+    UserDto signUp(SignUpRequestDto signUpRequestDto);
+
     UserDto getUserById(long id);
+
+    LoginResponseDto logout();
+
+    TokenRefreshResponse refreshToken(TokenRefreshRequest request);
 }
