@@ -1,16 +1,17 @@
 package com.example.hackathon.controller;
 
 
-import com.example.hackathon.dto.LoginRequestDto;
-import com.example.hackathon.dto.LoginResponseDto;
-import com.example.hackathon.dto.SearchResponseDto;
-import com.example.hackathon.dto.UserDto;
-import com.example.hackathon.model.Game;
+import com.example.hackathon.dto.*;
 import com.example.hackathon.service.UserManager;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -21,6 +22,9 @@ import java.util.List;
 public class UserController {
 
     private final UserManager userManager;
+
+    @Autowired
+    ObjectMapper objectMapper;
 
     public UserController(UserManager userManager) {
         this.userManager = userManager;
@@ -49,6 +53,46 @@ public class UserController {
     @GetMapping(value = "/get_user_by_id/{id}")
     public UserDto getUsersById(@PathVariable long id) {
         return this.userManager.getUserById(id);
+    }
+
+    @ApiOperation(value = "Search user by name")
+    @GetMapping(value = "/username")
+    public List<SearchResponseDto> getUsersByUserName(@RequestParam(name="name")  String userName) {
+        return this.userManager.getUsersByUserName(userName);
+    }
+
+    @ApiOperation(value = "get post by id")
+    @GetMapping(value = "/post/{id}")
+    public PostResponseDto getUsersByUserName(@PathVariable long id) {
+        return this.userManager.getPostsByUserId(id);
+    }
+
+    @ApiOperation(value = "get post by id")
+    @PostMapping(value = "/add_post")
+    public PostResponseDto.MediaResponseDto addPost(@RequestBody UploadVideoRequestDto uploadVideoRequestDto) {
+        return this.userManager.addExternalPost(uploadVideoRequestDto);
+    }
+
+    @ApiOperation(value = "like post")
+    @PostMapping(value="/like")
+    public LikeResponseDto addLike(@RequestBody LikeRequestDto likeRequestDto){
+        return this.userManager.addLike(likeRequestDto);
+    }
+
+    @ApiOperation(value = "like post")
+    @PostMapping(value="/unlike")
+    public LikeResponseDto removeLike(@RequestBody LikeRequestDto likeRequestDto){
+        return this.userManager.removeLike(likeRequestDto);
+    }
+
+
+    @ApiOperation(value = "like post")
+    @PostMapping(value="/profile/picture/{id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public UserDto updateProfile(@PathVariable long id,
+
+                                         @RequestParam("image") MultipartFile file) throws JsonProcessingException {
+
+        return this.userManager.updateProfile(id, file);
     }
 
     /*

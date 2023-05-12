@@ -48,6 +48,10 @@ public class UserService implements UserDetailsService {
         return  this.userRepository.findByEmailStartsWith(email);
     }
 
+    public List<User> getUsersByUserName(String userName) {
+        return  this.userRepository.finaProfiles(userName);
+    }
+
     public User createUser(User user) {
         return  this.userRepository.save(user);
     }

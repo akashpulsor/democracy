@@ -1,13 +1,16 @@
 package com.example.hackathon.model;
 
 
+import com.example.hackathon.dto.Gender;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -63,6 +66,13 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+
+
+    @Column(name="bio")
+    private String bio;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
 
 }
